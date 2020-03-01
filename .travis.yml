@@ -25,7 +25,7 @@ after_success:
   - set -e
   - if [ -z "${DOCKER_PASS}" ]; then echo "Build triggered by external PR. Skipping docker push" && exit 0; fi
   - docker login quay.io -u "${DOCKER_USER}" -p "${DOCKER_PASS}";
-  - ./scripts/build.sh
+  - docker build -t ${REPO}:${COMMIT} .
   - docker tag ${REPO}:${COMMIT} quay.io/kamarja/${REPO}:${COMMIT}
   - docker push quay.io/kamarja/${REPO}:${COMMIT}
 #notifications:
